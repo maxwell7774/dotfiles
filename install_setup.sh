@@ -87,5 +87,17 @@ if confirm_remove "$CONFIG_DIR/omarchy/themes-default"; then
     mv $CONFIG_DIR/omarchy/themes $CONFIG_DIR/omarchy/themes-default
 fi
 
-ln -sf $DOTFILES/omarchy/branding $CONFIG_DIR/omarchy/branding
-ln -sf $DOTFILES/omarchy/themes $CONFIG_DIR/omarchy/themes
+# if confirm_remove "$CONFIG_DIR/omarchy/branding"; then
+#     rm $CONFIG_DIR/omarchy/branding
+#     ln -sf $DOTFILES/omarchy/branding $CONFIG_DIR/omarchy/branding
+# fi
+#
+# if confirm_remove "$CONFIG_DIR/omarchy/themes"; then
+#     rm $CONFIG_DIR/omarchy/themes
+#     ln -sf $DOTFILES/omarchy/themes $CONFIG_DIR/omarchy/themes
+# fi
+
+if confirm_remove "$CONFIG_DIR/ghostty"; then
+    rm -rf $CONFIG_DIR/ghostty
+    ln -sf $DOTFILES/ghostty $CONFIG_DIR/ghostty
+fi
