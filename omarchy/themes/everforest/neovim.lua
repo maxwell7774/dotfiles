@@ -1,7 +1,10 @@
 return {
-	"neanias/everforest-nvim",
-	priority = 1000,
-	init = function()
-		vim.cmd.colorscheme("everforest")
-	end,
+	{ "neanias/everforest-nvim" },
+	{
+		"LazyVim/LazyVim",
+		opts = {
+			colorscheme = "everforest",
+			background = "soft",
+		},
+	},
 }

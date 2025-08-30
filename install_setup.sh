@@ -31,6 +31,7 @@
 set -eE
 
 CONFIG_DIR=~/.config
+DOTFILES=~/dotfiles
 SHARE_DIR=~/.local/share
 STATE_DIR=~/.local/state
 GITHUB_URL=https://github.com/maxwell7774
@@ -50,17 +51,15 @@ confirm_remove() {
     return 0
 }
 
-# Tmux config
-if confirm_remove "$CONFIG_DIR/tmux"; then
-    git clone $GITHUB_URL/tmux_config.git $CONFIG_DIR/tmux
-    ln -sf $CONFIG_DIR/tmux/.tmux.conf ~/.tmux.conf
-fi
+#rm ~/.tmux.conf
+ln -sf $DOTFILES/tmux/.tmux.conf ~/.tmux.conf
 
 # Neovim config
 if confirm_remove "$CONFIG_DIR/nvim"; then
     rm -rf $SHARE_DIR/nvim
     rm -rf $STATE_DIR/nvim
-    git clone $GITHUB_URL/nvim_2025 $CONFIG_DIR/nvim
+    rm -rf $CONFIG_DIR/nvim
+    ln -sf $DOTFILES/nvim $CONFIG_DIR/nvim
 fi
 
 # Workspace and apps
@@ -80,3 +79,13 @@ fi
 go install github.com/pressly/goose/v3/cmd/goose@latest
 go install github.com/sqlc-dev/sqlc/cmd/sqlc@latest
 
+if confirm_remove "$CONFIG_DIR/omarchy/branding-default"; then
+    mv $CONFIG_DIR/omarchy/branding $CONFIG_DIR/omarchy/branding-default
+fi
+
+if confirm_remove "$CONFIG_DIR/omarchy/themes-default"; then
+    mv $CONFIG_DIR/omarchy/themes $CONFIG_DIR/omarchy/themes-default
+fi
+
+ln -sf $DOTFILES/omarchy/branding $CONFIG_DIR/omarchy/branding
+ln -sf $DOTFILES/omarchy/themes $CONFIG_DIR/omarchy/themes
