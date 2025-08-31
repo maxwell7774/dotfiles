@@ -1,0 +1,1 @@
+/home/stitch/.config/omarchy/current/theme/lualine.lua
