@@ -14,7 +14,8 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
-vim.keymap.set("n", "<leader>sv", vim.cmd.Ex, { desc = "Opens file explore" })
+-- vim.keymap.set("n", "<leader>sv", vim.cmd.Ex, { desc = "Opens file explore" })
+vim.keymap.set("n", "<leader>sv", "<CMD>Oil<CR>", { desc = "Opens file explore" })
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Moves selected lines down one" })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Moves selected lines up one" })
