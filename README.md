@@ -32,3 +32,8 @@
   - Copy over monitor settings
   - Copy over bindings
 
+- yt-dlp
+  - Install from pacman
+
+- caligula
+  - Install from pacman
