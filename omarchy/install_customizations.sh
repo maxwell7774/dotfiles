@@ -14,10 +14,10 @@ rm $OMARCHY_DIR/hooks/theme-set.sample
 rm $OMARCHY_DIR/hooks/theme-set
 ln -sf $DOTFILES/omarchy/hooks/theme-set $OMARCHY_DIR/hooks/theme-set
 
-omarchy-theme-set gruvbox
-
 # Install extra themes
 omarchy-theme-install https://github.com/bjarneo/omarchy-nes-theme
+
+omarchy-theme-set gruvbox
 
 # Sets up nvim
 if [ -L "$CONFIG_DIR/nvim"]; then
@@ -31,9 +31,6 @@ else
 fi
 
 ln -sf $DOTFILES/nvim $CONFIG_DIR/nvim
-
-# Sets up ghostty
-omarchy-install-terminal ghostty
 
 if [ -L "$CONFIG_DIR/ghostty"]; then
   echo "nvim is a symlink"
