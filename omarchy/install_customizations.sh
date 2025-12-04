@@ -19,6 +19,49 @@ omarchy-theme-install https://github.com/bjarneo/omarchy-nes-theme
 
 omarchy-theme-set gruvbox
 
+echo "SHOULD BE vulkan-radeon for 9070 xt and lib32-vulkan-radeon"
+omarchy-install-steam
+
+# Discord
+omarchy-pkg-add discord
+
+# Minecraft Launcher
+omarchy-pkg-add minecraft-launcher
+
+# Youtube downloader
+omarchy-pkg-add yt-dlp
+
+# Disk imager
+omarchy-pkg-add caligula
+
+# Zen Browser
+yay -S zen-browser-bin
+
+# Dev tools
+omarchy-install-dev-env bun
+omarchy-install-dev-env npm
+omarchy-install-dev-env go
+omarchy-install-dev-env python
+
+# DBs
+omarchy-install-docker-dbs PostgreSQL
+
+# Remove unused web apps
+omarchy-webapp-remove Basecamp
+omarchy-webapp-remove Discord
+omarchy-webapp-remove "Google Contacts"
+omarchy-webapp-remove "Google Messages"
+omarchy-webapp-remove "Google Photos"
+omarchy-webapp-remove HEY
+omarchy-webapp-remove WhatsApp
+omarchy-webapp-remove X
+omarchy-webapp-remove Zoom
+
+omarchy-pkg-drop spotify
+omarchy-pkg-drop signal-desktop
+omarchy-pkg-drop 1password-beta
+omarchy-pkg-drop 1password-cli
+
 # Sets up nvim
 if [ -L "$CONFIG_DIR/nvim"]; then
   echo "nvim is a symlink"
@@ -43,6 +86,6 @@ fi
 ln -sf $DOTFILES/ghostty $CONFIG_DIR/ghostty
 
 # Tmux
-sudo pacman -S tmux
+pacman -S tmux
 rm ~/.tmux.conf
 ln -sf $DOTFILES/tmux/.tmux.conf ~/.tmux.conf
