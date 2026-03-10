@@ -63,7 +63,7 @@ STATE_DIR=$HOME_DIR/.local/state
 
 NVIM_CONFIG_DIR=$CONFIG_DIR/nvim
 THEME_LINK=$NVIM_CONFIG_DIR/lua/stitch/lazy/theme.lua
-CURRENT_THEME_DIR=$OMARCHY_DIR/current
+CURRENT_THEME_DIR=$OMARCHY_DIR/current/theme
 
 # ─────────────────────────────────────────────
 #  Argument Parsing
