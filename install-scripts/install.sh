@@ -180,6 +180,9 @@ apply_theme() {
     cp "$ghostty_conf_src" "$CURRENT_THEME_DIR/ghostty.conf"
     log_success "Copied ghostty.conf → $CURRENT_THEME_DIR/ghostty.conf"
 
+    safe_remove "$DOTFILES_DIR/.config/nvim/lua/stitch/lazy/theme.lua"
+    ln -sf "$OMARCHY_DIR/current/theme/neovim.lua" "$DOTFILES_DIR/.config/nvim/lua/stitch/lazy/theme.lua"
+
 }
 
 # ─────────────────────────────────────────────

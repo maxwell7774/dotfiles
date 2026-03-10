@@ -152,6 +152,9 @@ log_header "Theme"
 log_step "Setting theme to $THEME"
 omarchy-theme-set "$THEME" && log_success "Theme set to $THEME" || log_warn "Theme set may have failed (non-fatal)"
 
+safe_remove "$DOTFILES_DIR/.config/nvim/lua/stitch/lazy/theme.lua"
+ln -sf "$OMARCHY_DIR/current/theme/neovim.lua" "$DOTFILES_DIR/.config/nvim/lua/stitch/lazy/theme.lua"
+
 # ─────────────────────────────────────────────
 #  GPU / Vulkan note
 # ─────────────────────────────────────────────
