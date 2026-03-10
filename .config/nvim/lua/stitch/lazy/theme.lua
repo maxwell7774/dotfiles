@@ -1,1 +1,0 @@
-/home/stitch/.config/omarchy/current/theme/neovim.lua
