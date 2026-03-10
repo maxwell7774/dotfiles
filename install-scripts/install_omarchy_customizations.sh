@@ -40,6 +40,29 @@ WORKSPACE_DIR=$HOME_DIR/workspace
 GITHUB_DIR=$WORKSPACE_DIR/github.com/maxwell7774
 
 # ─────────────────────────────────────────────
+#  Argument Parsing
+# ─────────────────────────────────────────────
+THEME="gruvbox"
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -t|--theme)
+            if [[ -z "${2:-}" ]]; then
+                log_error "Option $1 requires an argument"
+                exit 1
+            fi
+            THEME="$2"
+            shift 2
+            ;;
+        *)
+            log_error "Unknown argument: $1"
+            echo -e "Usage: $0 [-t|--theme <theme_name>]"
+            exit 1
+            ;;
+    esac
+done
+
+# ─────────────────────────────────────────────
 #  Helpers
 # ─────────────────────────────────────────────
 
@@ -126,8 +149,8 @@ pkg_add_once stow
 # ─────────────────────────────────────────────
 log_header "Theme"
 
-log_step "Setting theme to gruvbox"
-omarchy-theme-set gruvbox && log_success "Theme set to gruvbox" || log_warn "Theme set may have failed (non-fatal)"
+log_step "Setting theme to $THEME"
+omarchy-theme-set "$THEME" && log_success "Theme set to $THEME" || log_warn "Theme set may have failed (non-fatal)"
 
 # ─────────────────────────────────────────────
 #  GPU / Vulkan note
