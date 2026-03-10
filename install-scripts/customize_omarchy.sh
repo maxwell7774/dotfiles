@@ -213,15 +213,15 @@ DOCKER_DBS=(
 
 # Web apps to remove via omarchy-webapp-remove
 WEBAPPS_REMOVE=(
-    # Basecamp
-    # Discord
-    # "Google Contacts"
-    # "Google Messages"
-    # "Google Photos"
-    # HEY
-    # WhatsApp
-    # X
-    # Zoom
+    Basecamp
+    Discord
+    "Google Contacts"
+    "Google Messages"
+    "Google Photos"
+    HEY
+    WhatsApp
+    X
+    Zoom
 )
 
 # ─────────────────────────────────────────────
@@ -291,6 +291,9 @@ safe_remove "$OMARCHY_DIR/branding/screensaver.txt"
 # Tmux
 safe_remove "$CONFIG_DIR/tmux"
 
+# Bindings
+safe_remove "$CONFIG_DIR/hypr/bindings.conf"
+
 # Stow dotfiles (idempotent — stow won't re-link if already linked)
 if [ -d "$DOTFILES_DIR" ]; then
     log_step "Stowing dotfiles from $DOTFILES_DIR → $HOME_DIR"
@@ -300,6 +303,8 @@ if [ -d "$DOTFILES_DIR" ]; then
 else
     log_warn "Dotfiles directory not found at $DOTFILES_DIR — skipping stow"
 fi
+
+omarchy-restart-hyprctl
 
 # ─────────────────────────────────────────────
 #  Done

@@ -224,7 +224,7 @@ safe_remove "$CONFIG_DIR/tmux"
 # Stow dotfiles
 if [ -d "$DOTFILES_DIR" ]; then
     log_step "Stowing dotfiles: $DOTFILES_DIR → $HOME_DIR"
-    stow -d "$DOTFILES_DIR" -t "$HOME_DIR" --restow . \
+    stow -d "$DOTFILES_DIR" -t "$HOME_DIR" --ignore='~/dotfiles/.config/hypr/bindings.conf' --restow . \
         && log_success "Dotfiles stowed successfully" \
         || log_error "stow reported an error — check for conflicts"
 else
