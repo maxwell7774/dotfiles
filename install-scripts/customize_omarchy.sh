@@ -291,7 +291,7 @@ safe_remove "$CONFIG_DIR/tmux"
 # Stow dotfiles (idempotent — stow won't re-link if already linked)
 if [ -d "$DOTFILES_DIR" ]; then
     log_step "Stowing dotfiles from $DOTFILES_DIR → $HOME_DIR"
-    stow -d "$DOTFILES_DIR" -t "$HOME_DIR" --ignore='~/dotfiles/.config/omarchy/^themes/[^/]+/ghostty\.conf$' --restow . \
+    stow -d "$DOTFILES_DIR" -t "$HOME_DIR" --ignore='~/dotfiles/.config/ghostty/^themes/[^/]+/ghostty\.conf$' --restow . \
         && log_success "Dotfiles stowed successfully" \
         || log_error "stow reported an error — check for conflicts"
 else

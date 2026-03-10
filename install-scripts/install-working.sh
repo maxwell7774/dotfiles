@@ -63,7 +63,6 @@ STATE_DIR=$HOME_DIR/.local/state
 
 NVIM_CONFIG_DIR=$CONFIG_DIR/nvim
 THEME_LINK=$NVIM_CONFIG_DIR/lua/stitch/lazy/theme.lua
-CURRENT_THEME_DIR=$OMARCHY_DIR/current
 
 # ─────────────────────────────────────────────
 #  Argument Parsing
@@ -133,61 +132,20 @@ install_stow() {
 }
 
 # ─────────────────────────────────────────────
-#  Apply theme
-#  - Cleans and recreates ~/.config/omarchy/current
-#  - Copies all files from ~/.config/omarchy/themes/<theme>/
-#  - Copies ghostty.conf from ~/.config/ghostty/themes/<theme>/ghostty.conf
-#  - Points the neovim theme.lua symlink at current/neovim.lua
+#  Set Neovim theme symlink
 # ─────────────────────────────────────────────
-apply_theme() {
-    local omarchy_theme_src="$OMARCHY_DIR/themes/$THEME"
-    local ghostty_conf_src="$CONFIG_DIR/ghostty/themes/$THEME/ghostty.conf"
+set_neovim_theme() {
+    local theme_target="$OMARCHY_DIR/themes/$THEME/neovim.lua"
     local link_dir
     link_dir=$(dirname "$THEME_LINK")
 
-    log_step "Applying theme: $THEME"
+    log_step "Setting Neovim theme to: $THEME"
 
-    # ── Validate sources ──────────────────────
-    local missing=0
-
-    if [ ! -d "$omarchy_theme_src" ]; then
-        log_warn "Omarchy theme directory not found: $omarchy_theme_src"
-        missing=1
-    fi
-
-    if [ ! -f "$ghostty_conf_src" ]; then
-        log_warn "Ghostty theme config not found: $ghostty_conf_src"
-        missing=1
-    fi
-
-    if [ "$missing" -eq 1 ]; then
-        log_warn "One or more theme sources are missing — skipping theme apply."
-        log_warn "Ensure your dotfiles are stowed, then re-run this script."
-        return
-    fi
-
-    # ── Clean and recreate ~/.config/omarchy/current ──
-    log_info "Cleaning current theme directory: $CURRENT_THEME_DIR"
-    rm -rf "$CURRENT_THEME_DIR"
-    mkdir -p "$CURRENT_THEME_DIR"
-    log_success "Cleaned: $CURRENT_THEME_DIR"
-
-    # ── Copy omarchy theme files ──────────────
-    log_info "Copying omarchy theme files from: $omarchy_theme_src"
-    cp -r "$omarchy_theme_src"/. "$CURRENT_THEME_DIR/"
-    log_success "Copied omarchy theme files → $CURRENT_THEME_DIR"
-
-    # ── Copy ghostty.conf ─────────────────────
-    log_info "Copying ghostty.conf from: $ghostty_conf_src"
-    cp "$ghostty_conf_src" "$CURRENT_THEME_DIR/ghostty.conf"
-    log_success "Copied ghostty.conf → $CURRENT_THEME_DIR/ghostty.conf"
-
-    # ── Set neovim theme symlink ──────────────
-    local neovim_target="$CURRENT_THEME_DIR/neovim.lua"
-
-    if [ ! -f "$neovim_target" ]; then
-        log_warn "neovim.lua not found in current theme dir: $neovim_target"
-        log_warn "The omarchy theme directory may be missing neovim.lua."
+    # Verify the theme file exists
+    if [ ! -f "$theme_target" ]; then
+        log_warn "Theme file not found: $theme_target"
+        log_warn "Ensure $OMARCHY_DIR/themes/$THEME/neovim.lua exists after stowing dotfiles."
+        log_warn "You can re-run this script once your dotfiles are in place."
         return
     fi
 
@@ -206,9 +164,10 @@ apply_theme() {
         rm "$THEME_LINK"
     fi
 
-    ln -s "$neovim_target" "$THEME_LINK" \
-        && log_success "Neovim theme symlink: $THEME_LINK → $neovim_target" \
-        || log_error "Failed to create neovim theme symlink"
+    # Create the new symlink
+    ln -s "$theme_target" "$THEME_LINK" \
+        && log_success "Theme symlink set: $THEME_LINK → $theme_target" \
+        || log_error "Failed to create theme symlink"
 }
 
 # ─────────────────────────────────────────────
@@ -258,10 +217,10 @@ else
 fi
 
 # ─────────────────────────────────────────────
-#  Theme
+#  Neovim Theme
 # ─────────────────────────────────────────────
-log_header "Theme"
-apply_theme
+log_header "Neovim Theme"
+set_neovim_theme
 
 # ─────────────────────────────────────────────
 #  Done
