@@ -133,7 +133,7 @@ omarchy-theme-set gruvbox && log_success "Theme set to gruvbox" || log_warn "The
 #  GPU / Vulkan note
 # ─────────────────────────────────────────────
 log_header "GPU / Vulkan"
-log_warn "For RX 9070 XT: ensure vulkan-radeon and lib32-vulkan-radeon are installed"
+log_info "For RX 9070 XT: ensure vulkan-radeon and lib32-vulkan-radeon are installed"
 
 # ─────────────────────────────────────────────
 #  Steam
