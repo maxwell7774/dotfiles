@@ -62,7 +62,6 @@ SHARE_DIR=$HOME_DIR/.local/share
 STATE_DIR=$HOME_DIR/.local/state
 
 NVIM_CONFIG_DIR=$CONFIG_DIR/nvim
-THEME_LINK=$NVIM_CONFIG_DIR/lua/stitch/lazy/theme.lua
 CURRENT_THEME_DIR=$OMARCHY_DIR/current/theme
 
 # ─────────────────────────────────────────────
@@ -143,7 +142,6 @@ apply_theme() {
     local omarchy_theme_src="$OMARCHY_DIR/themes/$THEME"
     local ghostty_conf_src="$CONFIG_DIR/ghostty/themes/$THEME/ghostty.conf"
     local link_dir
-    link_dir=$(dirname "$THEME_LINK")
 
     log_step "Applying theme: $THEME"
 
@@ -182,33 +180,6 @@ apply_theme() {
     cp "$ghostty_conf_src" "$CURRENT_THEME_DIR/ghostty.conf"
     log_success "Copied ghostty.conf → $CURRENT_THEME_DIR/ghostty.conf"
 
-    # ── Set neovim theme symlink ──────────────
-    # local neovim_target="$CURRENT_THEME_DIR/neovim.lua"
-    #
-    # if [ ! -f "$neovim_target" ]; then
-    #     log_warn "neovim.lua not found in current theme dir: $neovim_target"
-    #     log_warn "The omarchy theme directory may be missing neovim.lua."
-    #     return
-    # fi
-
-    # Ensure the parent directory for the symlink exists
-    if [ ! -d "$link_dir" ]; then
-        log_info "Creating directory: $link_dir"
-        mkdir -p "$link_dir"
-    fi
-
-    # Remove any existing file/symlink at the theme link path
-    if [ -L "$THEME_LINK" ]; then
-        log_info "Removing existing theme symlink: $THEME_LINK"
-        rm "$THEME_LINK"
-    elif [ -f "$THEME_LINK" ]; then
-        log_info "Removing existing theme file: $THEME_LINK"
-        rm "$THEME_LINK"
-    fi
-
-    ln -s "$neovim_target" "$THEME_LINK" \
-        && log_success "Neovim theme symlink: $THEME_LINK → $neovim_target" \
-        || log_error "Failed to create neovim theme symlink"
 }
 
 # ─────────────────────────────────────────────
