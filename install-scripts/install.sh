@@ -183,13 +183,13 @@ apply_theme() {
     log_success "Copied ghostty.conf → $CURRENT_THEME_DIR/ghostty.conf"
 
     # ── Set neovim theme symlink ──────────────
-    local neovim_target="$CURRENT_THEME_DIR/neovim.lua"
-
-    if [ ! -f "$neovim_target" ]; then
-        log_warn "neovim.lua not found in current theme dir: $neovim_target"
-        log_warn "The omarchy theme directory may be missing neovim.lua."
-        return
-    fi
+    # local neovim_target="$CURRENT_THEME_DIR/neovim.lua"
+    #
+    # if [ ! -f "$neovim_target" ]; then
+    #     log_warn "neovim.lua not found in current theme dir: $neovim_target"
+    #     log_warn "The omarchy theme directory may be missing neovim.lua."
+    #     return
+    # fi
 
     # Ensure the parent directory for the symlink exists
     if [ ! -d "$link_dir" ]; then
