@@ -200,6 +200,12 @@ else
     log_skip "nvim runtime dirs preserved (config already stow-managed)"
 fi
 
+# Ghostty
+safe_remove "$CONFIG_DIR/ghostty"
+
+# Tmux
+safe_remove "$CONFIG_DIR/tmux"
+
 # Stow dotfiles
 if [ -d "$DOTFILES_DIR" ]; then
     log_step "Stowing dotfiles: $DOTFILES_DIR → $HOME_DIR"

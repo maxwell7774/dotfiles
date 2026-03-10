@@ -285,6 +285,9 @@ safe_remove "$CONFIG_DIR/ghostty"
 # Omarchy screensaver branding
 safe_remove "$OMARCHY_DIR/branding/screensaver.txt"
 
+# Tmux
+safe_remove "$CONFIG_DIR/tmux"
+
 # Stow dotfiles (idempotent — stow won't re-link if already linked)
 if [ -d "$DOTFILES_DIR" ]; then
     log_step "Stowing dotfiles from $DOTFILES_DIR → $HOME_DIR"
